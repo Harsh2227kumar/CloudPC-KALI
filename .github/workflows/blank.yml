@@ -21,7 +21,7 @@ jobs:
           | pwd
 
       - name: AuthNgrok
-        run: ./home/runner/.config/ngrok/ngrok config add-authtoken 2dUvkmsD58L7yOoqgKugNtmkMdW_5xWrH7Xaz1MtdSKtixbFq
+        run: ./home/runner/work/CloudPC-KALI/CloudPC-KALI/ngrok config add-authtoken 2dUvkmsD58L7yOoqgKugNtmkMdW_5xWrH7Xaz1MtdSKtixbFq
      
       - name: Enable RDP
         run: |
