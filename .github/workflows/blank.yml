@@ -14,11 +14,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install jq
 
-      - name: Create User
+      - name: Set Password
         run: |
-          sudo useradd -m -s /bin/bash kali 
-          sudo useradd -m kali
-          sudo passwd kali
+          echo "kaliuser:kjla" | sudo chpasswd
           
       - name: Download ngrok
         run: curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc \ 
