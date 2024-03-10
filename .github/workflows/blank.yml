@@ -20,7 +20,7 @@ jobs:
           | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
 
       - name: AuthNgrok
-        run: ngrok config add-authtoken 2dUvkmsD58L7yOoqgKugNtmkMdW_5xWrH7Xaz1MtdSKtixbFq
+        run: ./home/runner/.config/ngrok/ngrok config add-authtoken 2dUvkmsD58L7yOoqgKugNtmkMdW_5xWrH7Xaz1MtdSKtixbFq
      
       - name: Enable RDP
         run: |
