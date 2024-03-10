@@ -14,6 +14,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install jq
 
+      - name: Create User
+        run: |
+          sudo useradd -m -s /bin/bash kali 
+          sudo useradd -m kali
+          sudo passwd kali
+          
       - name: Download ngrok
         run: curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc \ 
           | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" \
@@ -27,13 +33,6 @@ jobs:
           sudo ufw allow 3389/tcp
           sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
           sudo service ssh restart
-
-      - name: Create User
-        run: sudo useradd -m -s /bin/bash ${{ secrets.kali }}
-      
-      - name: Set Password
-        run: echo '${{ secrets.kali }}:${{ secrets.kali }}' | sudo chpasswd
-
 
           
       - name: Create Tunnel
