@@ -13,25 +13,19 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install jq
-   
       - name: Download ngrok
-        run: cd /home/runner/work/CloudPC-KALI/CloudPC-KALI 
-          | mkdir ngrok
-          | cd ngrok
-          | curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc \ 
-          | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" \
-          | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
-          | pwd
-
-      - name: AuthNgrok
-        run: ./home/runner/work/CloudPC-KALI/CloudPC-KALI/ngrok config add-authtoken 2dUvkmsD58L7yOoqgKugNtmkMdW_5xWrH7Xaz1MtdSKtixbFq
-     
+        run: |
+          wget -q https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip
+          unzip -qq ngrok-stable-linux-amd64.zip
+          
+      - name: Auth
+        run: ./ngrok authtoken 2dUvkmsD58L7yOoqgKugNtmkMdW_5xWrH7Xaz1MtdSKtixbFq
+      
       - name: Enable RDP
         run: |
           sudo ufw allow 3389/tcp
           sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
           sudo service ssh restart
-
           
       - name: Create Tunnel
         run: ./ngrok tcp 3389
