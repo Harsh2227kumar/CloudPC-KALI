@@ -1,0 +1,32 @@
+name: Build on Ubuntu
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Install jq tool
+        run: |
+          sudo apt-get update
+          sudo apt-get install jq
+
+      - name: Download ngrok
+        run: wget -qO ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip
+
+      - name: Extract ngrok
+        run: unzip ngrok.zip
+
+      - name: Auth
+        run: ./ngrok/ngrok authtoken 2dUvkmsD58L7yOoqgKugNtmkMdW_5xWrH7Xaz1MtdSKtixbFq
+
+      - name: Enable RDP
+        run: |
+          sudo sysctl net.ipv4.ip_forward=1
+          sudo iptables -t nat -A PREROUTING -p tcp --dport 3389 -j REDIRECT --to-port 3389
+
+      - name: Create Tunnel
+        run: ./ngrok/ngrok tcp 3389
