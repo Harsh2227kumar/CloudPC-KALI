@@ -13,11 +13,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install jq
-
-      - name: Set Password
-        run: |
-          echo "kaliuser:kjla" | sudo chpasswd
-          
+   
       - name: Download ngrok
         run: curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc \ 
           | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" \
